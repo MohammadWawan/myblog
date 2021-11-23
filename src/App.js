@@ -1,10 +1,10 @@
 import './App.css';
-import HeaderAdmin from "./component/headerAdmin"
+import Login from './page/login/Login';
 
 function App() {
   return (
     <div className="App">
-      <HeaderAdmin/>
+      <Login/>
     </div>
   );
 }
