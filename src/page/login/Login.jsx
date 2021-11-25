@@ -1,6 +1,7 @@
 import React from 'react'
 import NavbarLogin from '../../component/navbar/Navbar_login'
 import "./login.css"
+
 export default function Login() {
     return (
         <div>
@@ -12,7 +13,7 @@ export default function Login() {
         <input className="loginInput" type="text" placeholder="Enter your email..." />
         <label style={{marginRight:"140px"}}>Password</label>
         <input className="loginInput" type="password" placeholder="Enter your password..." />
-        <button className="loginButton">Login</button>
+        <button className="loginButton" >Login</button>
       </form>
     </div>
         </div>

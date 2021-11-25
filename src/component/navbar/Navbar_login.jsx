@@ -6,7 +6,7 @@ export default function Navbar() {
         <nav >
         <div className="top">
       <div className="topLeft">
-      <img src={Logo} alt="logo" width="80px" height="50px" style={{marginLeft:"50px"}} />
+      <img src={Logo} alt="logo" width="80px" height="auto" style={{marginLeft:"50px"}} />
       </div>
       <div className="topCenter">
         <ul className="topList">

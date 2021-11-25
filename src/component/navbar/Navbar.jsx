@@ -2,6 +2,7 @@ import "./navbar.css"
 import Logo from "../assets/image/logo.png"
 import iconSearch from "../assets/image/baseline_search_black_36dp.png"
 import { Button, FormControl, InputGroup } from "react-bootstrap"
+import { Link } from "react-router-dom"
 export default function Navbar() {
     return (
         <nav >
@@ -12,16 +13,16 @@ export default function Navbar() {
       <div className="topCenter">
         <ul className="topList">
           <li className="topListItem">
-            <div className="link">
+            <Link className="link" to="/">
               HOME
-            </div>
+            </Link>
           </li>
           <li className="topListItem">ABOUT</li>
           <li className="topListItem">CONTACT</li>
           <li className="topListItem">
-            <div className="link">
+          <Link to="/write">
               WRITE
-            </div>
+            </Link>
           </li>
         </ul>
       </div>
