@@ -1,8 +1,12 @@
 import "./post.css";
 import gambar from "../assets/image/logo.png"
-const Post = (props) => {
-  const {id,title,stories}=props.data;
+import TimeAgo from "react-timeago"
+import indonesiaStrings from "react-timeago/lib/language-strings/id"
+import buildFormatter from 'react-timeago/lib/formatters/buildFormatter'
 
+const Post = (props) => {
+  const {id,title,stories,created_at,updated_at}=props.data;
+  const formatter = buildFormatter(indonesiaStrings)
   return (
     <div className="post">
       <img
@@ -17,7 +21,9 @@ const Post = (props) => {
           </div>
         </span>
         <hr />
-        <span className="postDate">1 hour ago</span>
+        <span className="postDate">
+          <TimeAgo date={updated_at} formatter={formatter} />
+          </span>
       </div>
       <p className="postDesc">
         {stories}

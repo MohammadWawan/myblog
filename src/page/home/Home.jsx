@@ -9,9 +9,10 @@ query MyQuery($_eq: Int_comparison_exp = {}) {
       id
       title
       stories
+      created_at
+      updated_at
     }
   }
-  
 `;
 
 export default function Home() {

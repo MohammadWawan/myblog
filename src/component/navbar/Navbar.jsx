@@ -13,7 +13,7 @@ export default function Navbar() {
       <div className="topCenter">
         <ul className="topList">
           <li className="topListItem">
-            <Link className="link" to="/">
+            <Link to="/">
               HOME
             </Link>
           </li>
@@ -27,10 +27,11 @@ export default function Navbar() {
         </ul>
       </div>
       <div className="topRight">
-      <InputGroup className="mb-3">
+      <InputGroup className="mb-3" style={{marginTop:"15px", marginRight:"15px" }} >
     <FormControl
       placeholder="Search"
       aria-describedby="basic-addon2"
+      
     />
     <Button variant="outline-secondary" id="button-addon2">
       <img src={iconSearch} alt="iconsearch" width="12px"/>
