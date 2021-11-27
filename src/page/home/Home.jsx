@@ -2,7 +2,8 @@ import React from 'react'
 import Header from '../../component/header/Header'
 import Navbar from '../../component/navbar/Navbar'
 import Posts from '../../component/posts/Posts'
-import {gql,useQuery} from "@apollo/client"
+import {gql,useMutation,useQuery} from "@apollo/client"
+
 const GET_CONTENT = gql`
 query MyQuery($_eq: Int_comparison_exp = {}) {
     myBlog_content(where: {id: $_eq}) {
@@ -20,7 +21,7 @@ export default function Home() {
         variables:{_eq:{}},
         notifyOnNetworkStatusChange:true,
     });
-
+    
     return (
         <>
           <Navbar/>

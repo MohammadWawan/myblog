@@ -5,11 +5,6 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import client from "./config/apollo-client"
 import {ApolloProvider} from "@apollo/client"
-import TimeAgo from 'javascript-time-ago'
-import en from 'javascript-time-ago/locale/en.json'
-
-TimeAgo.addDefaultLocale(en)
-
 ReactDOM.render(
   <ApolloProvider client={client}>
   <React.StrictMode>
