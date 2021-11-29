@@ -1,6 +1,6 @@
 import "./navbar.css"
-import Logo from "../assets/image/logo.png"
-import iconSearch from "../assets/image/baseline_search_black_36dp.png"
+import Logo from "../../image/logo.png"
+import iconSearch from "../../image/baseline_search_black_36dp.png"
 import { Button, FormControl, InputGroup } from "react-bootstrap"
 import { Link } from "react-router-dom"
 export default function Navbar() {
@@ -17,8 +17,16 @@ export default function Navbar() {
               HOME
             </Link>
           </li>
-          <li className="topListItem">ABOUT</li>
-          <li className="topListItem">CONTACT</li>
+          <li className="topListItem">
+          <Link to="/about">
+              ABOUT
+            </Link>
+          </li>
+          <li className="topListItem">
+          <Link to="/contact">
+              CONTACT
+            </Link>
+          </li>
           <li className="topListItem">
           <Link to="/write">
               WRITE

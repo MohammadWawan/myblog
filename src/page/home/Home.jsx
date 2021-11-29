@@ -2,7 +2,7 @@ import React from 'react'
 import Header from '../../component/header/Header'
 import Navbar from '../../component/navbar/Navbar'
 import Posts from '../../component/posts/Posts'
-import {gql,useMutation,useQuery} from "@apollo/client"
+import {gql,useQuery} from "@apollo/client"
 
 const GET_CONTENT = gql`
 query MyQuery($_eq: Int_comparison_exp = {}) {

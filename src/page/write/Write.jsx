@@ -2,22 +2,20 @@ import "./write.css"
 import GetContent from '../home/Home'
 import PostInput from "../../component/postInput/postInput";
 import {gql,useMutation} from "@apollo/client"
-
+import {GET_CONTENT} from "../../graphql/queries.js"
 export default function Write() {
-  const INSERT_CONTENT = gql`
-  mutation MyMutation($title: String = "", $stories: String = "", $updated_at: timestamptz = "") {
-    insert_myBlog_content(objects: {title: $title, stories: $stories, updated_at: $updated_at}) {
-      returning {
-        title
-      }
+ const INSERT_CONTENT = gql`
+  mutation MyMutation($object: myBlog_content_insert_input={}) {
+    insert_myBlog_content(object: $object) {
+      id
     }
   }
   `;
 
-  const [insertNewData,{data:newData}]=useMutation(INSERT_CONTENT);
+  const [insertNewData,{data:insertData}]=useMutation(INSERT_CONTENT);
 
-  const tambahContent = async (newContent) => {
-    await insertNewData({
+  const createContent = (newContent) => {
+    insertNewData({
       variables: {
         object: {
           title:newContent.title,
@@ -26,7 +24,7 @@ export default function Write() {
       },
       refetchQueries: [
         {
-          query: GetContent,
+          query: {GET_CONTENT},
         },
       ],
     });
@@ -34,7 +32,7 @@ export default function Write() {
   
     return (
       <PostInput 
-      tambahContent ={tambahContent}
+      createContent ={createContent}
       />
     )
 }

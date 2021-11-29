@@ -1,12 +1,15 @@
 import "./postInput.css"
-import plus from "../assets/image/plus-image.png"
+import plus from "../../image/plus-image.png"
 import { useState } from "react"
 
-export default function PostInput(props) {  
-    const [state, setState] = useState({
+const PostInput=(props)=> {  
+    const [inputContent, setInputContent] = useState({
+    id:"",
     title:"",
     stories:"",
     });
+
+    
     const [image,setImage]=useState("")
     const [saveImage,setSaveImage]=useState(null);
 
@@ -17,34 +20,38 @@ export default function PostInput(props) {
       setSaveImage(uploaded)
     }
     const onChange = (e) => {
-        setState({
-          ...state,
+        setInputContent({
+          ...inputContent,
           [e.target.name]: e.target.value,
         })
       }
       
     const handleSubmit=(e)=>{
-        if(state.title.trim()&&state.stories){
-            const stories=state.stories
-            if(stories==""||stories==null){
-                alert("Isi stories kamu")
-            }
-            else{
-                const newContent={
-                    title:state.title,
-                    stories:state.stories
-                }
-                props.tambahContent(newContent)
-                setState({
-                    ...state,
-                    title:"",
-                    stories:"",
-                })
-            }
-        }else{
-            alert("Data masih kosong")
+      e.preventdefault()
+      if (inputContent.title.trim() && inputContent.stories) {
+        const story = inputContent.stories;
+        if (story == "") {
+          alert("stories gk ada");
+        } else {
+          const newData = {
+            variables: {
+              object: {
+                title:inputContent.title,
+                stories:inputContent.stories,
+              },
+            },
+          };
+          props.createContent();
+          setInputContent({
+            ...inputContent,
+            title: "",
+            stories: "",
+          });
         }
-    }
+      } else {
+        alert("Data masih ada yang kosong");
+      }
+    };
     return (
       <div className="write">
       <img
@@ -65,7 +72,7 @@ export default function PostInput(props) {
           placeholder="Title"
           type="text"
           autoFocus={true}
-          value={state.title}
+          value={inputContent.title}
           name="title"
           onChange={onChange}
         />
@@ -76,7 +83,7 @@ export default function PostInput(props) {
           placeholder="Tell your story..."
           type="text"
           autoFocus={true}
-          value={state.stories}
+          value={inputContent.stories}
           name="stories"
           onChange={onChange}
         />
@@ -88,3 +95,5 @@ export default function PostInput(props) {
       </div>
     )
 }
+
+export default PostInput;

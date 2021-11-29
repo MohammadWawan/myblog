@@ -1,5 +1,5 @@
 import React from 'react'
-import bg from "../assets/image/gb-head.jpg"
+import bg from "../../image/gb-head.jpg"
 import "./header.css"
 export default function Header() {
     return (

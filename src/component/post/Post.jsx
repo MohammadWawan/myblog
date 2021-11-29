@@ -1,8 +1,9 @@
 import "./post.css";
-import gambar from "../assets/image/logo.png"
+import gambar from "../../image/logo.png"
 import TimeAgo from "react-timeago"
 import indonesiaStrings from "react-timeago/lib/language-strings/id"
 import buildFormatter from 'react-timeago/lib/formatters/buildFormatter'
+import Button from "@restart/ui/esm/Button";
 
 const Post = (props) => {
   const {id,title,stories,created_at,updated_at}=props.data;
@@ -28,6 +29,7 @@ const Post = (props) => {
       <p className="postDesc">
         {stories}
       </p>
+      <Button href="/singlepost"className="postDesc col col-lg-2" >more</Button>
     </div>
   );
 }
