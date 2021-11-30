@@ -5,10 +5,13 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import client from "./config/apollo-client"
 import {ApolloProvider} from "@apollo/client"
+import ContentContextProvider from './context/ContentContext';
 ReactDOM.render(
   <ApolloProvider client={client}>
   <React.StrictMode>
+  <ContentContextProvider>
     <App />
+  </ContentContextProvider>
   </React.StrictMode>
   </ApolloProvider>,
   document.getElementById('root')

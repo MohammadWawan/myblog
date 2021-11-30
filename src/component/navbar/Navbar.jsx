@@ -8,7 +8,9 @@ export default function Navbar() {
         <nav >
         <div className="top">
       <div className="topLeft">
+      <a href="/">
       <img src={Logo} alt="logo" width="80px" height="auto" style={{marginLeft:"50px"}} />
+      </a>
       </div>
       <div className="topCenter">
         <ul className="topList">

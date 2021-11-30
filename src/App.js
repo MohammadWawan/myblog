@@ -6,9 +6,11 @@ import Write from './page/write/Write';
 import SinglePost from './component/singlePost/singlePost';
 import About from './page/about/About';
 import Contact from './page/contact/Contact'
+
 import { BrowserRouter, Routes,Route } from 'react-router-dom';
 function App() {
   return (
+    
     <BrowserRouter>
     <Routes>
     <Route path="/login" exact element={<Login/>}></Route>
@@ -19,6 +21,7 @@ function App() {
     <Route path="/" exact element={<Home/>}></Route>
     </Routes>
     </BrowserRouter>
+    
   );
 }
 

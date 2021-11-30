@@ -1,8 +1,31 @@
-import "./singlePost.css";
+import React,{useContext} from 'react'
 import gambar from "../../image/gb-head.jpg"
-export default function SinglePost() {
-  return (
-    <div className="singlePost">
+import "./singlepost.css"
+import { ContentContext } from '../../context/ContentContext'
+import Moment from 'react-moment'
+import { useMutation } from '@apollo/client'
+import { DELETE_CONTENT,GET_CONTENT } from '../../graphql/queries'
+import Button from '@restart/ui/esm/Button'
+
+const SinglePost=()=> {
+    const {content}=useContext(ContentContext);
+    console.log(content)
+    const date = new Date();
+    const [deleteDataById,{data:deleteData}]=useMutation(DELETE_CONTENT);
+    const hapusContent=async(id)=>{
+      await deleteDataById({
+        variables:{
+          id:id,
+        },
+        refetchQueries: [
+          {
+            query: GET_CONTENT,
+          },
+        ],
+      })
+    }
+    return (
+        <div className="singlePost">
       <div className="singlePostWrapper">
         <img
           className="singlePostImg"
@@ -10,46 +33,23 @@ export default function SinglePost() {
           alt=""
         />
         <h1 className="singlePostTitle">
-          Lorem ipsum dolor
+          {content.title}
           <div className="singlePostEdit">
-            <button className="buttonEdit">Edit</button>
-            <button className="buttonDelete">Delete</button>
+            <Button className="buttonEdit" onClick={hapusContent}>Edit</Button>
+            <Button className="buttonDelete">Delete</Button>
           </div>
         </h1>
         <div className="singlePostInfo">
-          <span>1 day ago</span>
+          <span>
+            <Moment format="MMMM Do YYYY">{date}</Moment>
+          </span>
         </div>
         <p className="singlePostDesc">
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Iste error
-          quibusdam ipsa quis quidem doloribus eos, dolore ea iusto impedit!
-          Voluptatum necessitatibus eum beatae, adipisci voluptas a odit modi
-          eos! Lorem, ipsum dolor sit amet consectetur adipisicing elit. Iste
-          error quibusdam ipsa quis quidem doloribus eos, dolore ea iusto
-          impedit! Voluptatum necessitatibus eum beatae, adipisci voluptas a
-          odit modi eos! Lorem, ipsum dolor sit amet consectetur adipisicing
-          elit. Iste error quibusdam ipsa quis quidem doloribus eos, dolore ea
-          iusto impedit! Voluptatum necessitatibus eum beatae, adipisci voluptas
-          a odit modi eos! Lorem, ipsum dolor sit amet consectetur adipisicing
-          elit. Iste error quibusdam ipsa quis quidem doloribus eos, dolore ea
-          iusto impedit! Voluptatum necessitatibus eum beatae, adipisci voluptas
-          a odit modi eos! Lorem, ipsum dolor sit amet consectetur adipisicing
-          elit. Iste error quibusdam ipsa quis quidem doloribus eos, dolore ea
-          iusto impedit! Voluptatum necessitatibus eum beatae, adipisci voluptas
-          a odit modi eos!
-          <br />
-          <br />
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Iste error
-          quibusdam ipsa quis quidem doloribus eos, dolore ea iusto impedit!
-          Voluptatum necessitatibus eum beatae, adipisci voluptas a odit modi
-          eos! Lorem, ipsum dolor sit amet consectetur adipisicing elit. Iste
-          error quibusdam ipsa quis quidem doloribus eos, dolore ea iusto
-          impedit! Voluptatum necessitatibus eum beatae, adipisci voluptas a
-          odit modi eos! Lorem, ipsum dolor sit amet consectetur adipisicing
-          elit. Iste error quibusdam ipsa quis quidem doloribus eos, dolore ea
-          iusto impedit! Voluptatum necessitatibus eum beatae, adipisci voluptas
-          a odit modi eos! Lorem, ipsum dolor sit amet consectetur.
+        {content.stories}
         </p>
       </div>
     </div>
-  );
+    )
 }
+
+export default SinglePost;
