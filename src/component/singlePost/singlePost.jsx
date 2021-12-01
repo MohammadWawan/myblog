@@ -1,6 +1,6 @@
 import React,{useContext} from 'react'
 import gambar from "../../image/gb-head.jpg"
-import "./singlepost.css"
+import "./singlePost.css"
 import { ContentContext } from '../../context/ContentContext'
 import Moment from 'react-moment'
 import { useMutation } from '@apollo/client'
