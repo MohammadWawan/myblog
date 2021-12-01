@@ -3,9 +3,15 @@ import Navbar from '../../component/navbar/Navbar'
 
 export default function About() {
     return (
-        <div>
-            <Navbar/>
-            <p>Nama : Mohammad Wawan</p>
+        <>
+        <Navbar/>
+        <div className="container">
+            <div className="row justify-content-md-center">
+                <div className="col-md-auto">
+                    Nama: Mohammad Wawan
+                </div>
+            </div>
         </div>
+        </>
     )
 }

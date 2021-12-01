@@ -7,8 +7,11 @@ const ContentContextProvider=(props)=> {
         title:"",
         stories:""
     });
+    const[onEdit,setOnEdit]=useState(false);
+    const [search,setSearch]=useState("");
+    const[onSearch,setOnSearch]=useState(false);
     return (
-       <ContentContext.Provider value={{content,setContent}} >
+       <ContentContext.Provider value={{content,setContent,onEdit,setOnEdit,search,setSearch,onSearch,setOnSearch}} >
            {props.children}
        </ContentContext.Provider>
     )

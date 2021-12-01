@@ -27,10 +27,21 @@ mutation MyMutation($stories: String!, $title: String!) {
 
 export const DELETE_CONTENT=gql`
 mutation MyMutation($id: Int!) {
-  delete_myBlog_konten_by_pk(id: $id) {
-    id
+  delete_myBlog_konten(where: {id: {_eq: $id}}) {
+    affected_rows
   }
 }
 `;
-
+export const UPDATE_CONTENT=gql`
+mutation MyMutation($id: Int!, $stories: String!, $title: String!) {
+  update_myBlog_konten(where: {id: {_eq: $id}}, _set: {stories: $stories, title: $title}) {
+    affected_rows
+    returning {
+      id
+      title
+      stories
+    }
+  }
+}
+`;
   

@@ -1,27 +1,15 @@
 import "./write.css"
 import {gql,useMutation} from "@apollo/client"
-import {GET_CONTENT} from "../../graphql/queries"
+import {GET_CONTENT,INSERT_CONTENT,UPDATE_CONTENT} from "../../graphql/queries"
 import { ContentContext } from "../../context/ContentContext";
-import React,{useContext,useState,} from "react";
+import React,{useContext,useState,useEffect} from "react";
 import plus from "../../image/plus-image.png"
 import { useNavigate } from 'react-router-dom';
+
 const Write=()=> {
-
- const INSERT_CONTENT = gql`
- mutation MyMutation($stories: String!, $title: String!) {
-  insert_myBlog_konten(objects: {title: $title, stories: $stories}) {
-    affected_rows
-    returning {
-      id
-      title
-      stories
-    }
-  }
-}
-`;
-
-  const {content}=useContext(ContentContext);
+  const {content,onEdit,setOnEdit}=useContext(ContentContext);
   const [insertNewData,{data:insertData}]=useMutation(INSERT_CONTENT);
+  const[editDataById,{data:ediData}]=useMutation(UPDATE_CONTENT);
   const createContent = () => {
     insertNewData({
       variables: {
@@ -35,7 +23,16 @@ const Write=()=> {
       ],
     });
   };
-  
+  useEffect(()=>{
+    if(onEdit){
+      setInputContent({
+        id:content.id,
+        title:content.title,
+        stories:content.stories,
+      })
+    }
+  },[onEdit]);
+
   const [inputContent, setInputContent] = useState({
     id:"",
     title:"",
@@ -59,14 +56,27 @@ const Write=()=> {
         })
       }
     const navigate=useNavigate()
+    
     const handleSubmit=()=>{
       if (inputContent.title.trim() && inputContent.stories) {
         const story = inputContent.stories;
         if (story == "") {
           alert("stories gk ada");
         } else {
+          if(onEdit){
+            editDataById({
+              variables:{
+                id:inputContent.id,
+                title:inputContent.title,
+                stories:inputContent.stories,
+              }
+            })
+            setOnEdit(false)
+          }else{
           console.log(inputContent);
           createContent();
+          
+          }
           setInputContent({
             ...inputContent,
             title:"",

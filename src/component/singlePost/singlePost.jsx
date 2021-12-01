@@ -4,16 +4,20 @@ import "./singlepost.css"
 import { ContentContext } from '../../context/ContentContext'
 import Moment from 'react-moment'
 import { useMutation } from '@apollo/client'
-import { DELETE_CONTENT,GET_CONTENT } from '../../graphql/queries'
+import { DELETE_CONTENT,GET_CONTENT,UPDATE_CONTENT } from '../../graphql/queries'
 import Button from '@restart/ui/esm/Button'
+import { useNavigate } from 'react-router-dom';
 
 const SinglePost=()=> {
-    const {content}=useContext(ContentContext);
+    const {content,setContent,setOnEdit}=useContext(ContentContext);
     console.log(content)
     const date = new Date();
     const [deleteDataById,{data:deleteData}]=useMutation(DELETE_CONTENT);
-    const hapusContent=async(id)=>{
-      await deleteDataById({
+    const[editDataById,{data:ediData}]=useMutation(UPDATE_CONTENT);
+    let navigate = useNavigate();
+
+    const hapusContent=(id)=>{
+      deleteDataById({
         variables:{
           id:id,
         },
@@ -23,6 +27,16 @@ const SinglePost=()=> {
           },
         ],
       })
+      navigate("/");
+    }
+    const updateContent=(id,title,stories)=>{      
+      setContent({
+        id:id,
+        title:title,
+        stories:stories,
+      })
+      setOnEdit(true)
+      navigate("/write");
     }
     return (
         <div className="singlePost">
@@ -35,8 +49,8 @@ const SinglePost=()=> {
         <h1 className="singlePostTitle">
           {content.title}
           <div className="singlePostEdit">
-            <Button className="buttonEdit" onClick={hapusContent}>Edit</Button>
-            <Button className="buttonDelete">Delete</Button>
+            <Button className="buttonEdit" onClick={()=>updateContent(content.id,content.title,content.stories)}>Edit</Button>
+            <Button className="buttonDelete" onClick={()=>hapusContent(content.id)}>Delete</Button>
           </div>
         </h1>
         <div className="singlePostInfo">

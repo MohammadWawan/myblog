@@ -14,10 +14,11 @@ const Post = (props) => {
   const formatter = buildFormatter(indonesiaStrings)
   let navigate = useNavigate();
   const {setContent}=useContext(ContentContext);
-  const handleMore=(isi_content)=>{
+  const handleMore=(id,title,stories)=>{
     setContent({
-      title:isi_content,
-      stories:isi_content,
+      id:id,
+      title:title,
+      stories:stories,
     })
     navigate("/singlepost");
   }
@@ -43,7 +44,7 @@ const Post = (props) => {
       <p className="postDesc">
         {stories}
       </p>
-      <Button onClick={()=>handleMore(title,stories)} className="postDesc" >more</Button>
+      <Button onClick={()=>handleMore(id,title,stories)} className="postDesc" >more</Button>
     </div>
   );
 }
