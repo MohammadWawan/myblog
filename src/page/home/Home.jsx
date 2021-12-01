@@ -2,7 +2,7 @@ import React from 'react'
 import Header from '../../component/header/Header'
 import Navbar from '../../component/navbar/Navbar'
 import Posts from '../../component/posts/Posts'
-import {gql,useQuery} from "@apollo/client"
+import {useQuery} from "@apollo/client"
 import { GET_CONTENT } from '../../graphql/queries'
 
 export default function Home() {

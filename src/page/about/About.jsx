@@ -8,7 +8,9 @@ export default function About() {
         <div className="container">
             <div className="row justify-content-md-center">
                 <div className="col-md-auto">
-                    Nama: Mohammad Wawan
+                    Nama: Mohammad Wawan<br/>                    
+                    Asal: Pasuruan<br/>                    
+                    Hobi: Main Game
                 </div>
             </div>
         </div>
