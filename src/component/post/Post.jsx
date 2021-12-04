@@ -26,7 +26,7 @@ const Post = (props) => {
   return (
     <div className="post">
       <img
-        className="postImg"
+        className="postImg mx-auto text-center"
         src={image_url}
         alt=""
       />
