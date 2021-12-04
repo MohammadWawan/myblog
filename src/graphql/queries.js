@@ -1,8 +1,8 @@
 import {gql} from "@apollo/client"
 
 export const GET_CONTENT = gql`
-query MyQuery {
-  myBlog_konten {
+query MyQuery( $_eq: Int_comparison_exp = {}) {
+  myBlog_konten (where: { id: $_eq }) {
     id
     title
     stories

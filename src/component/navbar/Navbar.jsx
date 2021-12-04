@@ -1,10 +1,13 @@
 import "./navbar.css"
 import Logo from "../../image/logo.png"
 import iconSearch from "../../image/baseline_search_black_36dp.png"
-import { Button, FormControl, Image, InputGroup } from "react-bootstrap"
+import { FormControl, Image, InputGroup } from "react-bootstrap"
 import { Link } from "react-router-dom"
 import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom"
+import React,{useState,useEffect} from "react"
+import { GET_CONTENT } from "../../graphql/queries"
+import { useQuery } from "@apollo/client"
 export default function Navbar() {
   const [cookie, setCookie, removeCookie] = useCookies(["admin"]);
   const navigate=useNavigate()
@@ -14,6 +17,24 @@ export default function Navbar() {
     });
   navigate("/login")
   };
+  const {data,loading,refetch}=useQuery(GET_CONTENT);
+  const [input,setInput]=useState("");
+  const handleChange=(e)=>{
+    setInput(e.target.value);
+  }
+  useEffect(() => {
+    if (input.length > 0) {
+      refetch({
+        title: {
+          title: input,
+        },
+      });
+    } else {
+      refetch({
+        title: {},
+      });
+    }
+  }, [input]);
     return (
         <nav >
         <div className="top">
@@ -52,6 +73,8 @@ export default function Navbar() {
     <FormControl
       placeholder="Search"
       aria-describedby="basic-addon2"
+      value={input}
+      onChange={handleChange}
     />
       <img src={iconSearch} alt="iconsearch img-fluid" width="10%" height="10%" />
   </InputGroup>

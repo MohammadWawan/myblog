@@ -112,8 +112,7 @@ const Write=()=> {
             <img src={plus} alt="" width="100%" height="auto"/>
           </i>
         </label>
-        <input id="fileInput" type="file" style={{ display: "none" }} onChange={onChangePhoto} />
-        <h3>Uploaded {progress} %</h3>
+        <input id="fileInput" type="file" style={{ display: "none" }} onChange={onChangePhoto} />      
         <input
           className="writeInput"
           placeholder="Title"
