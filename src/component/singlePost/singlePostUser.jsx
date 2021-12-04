@@ -8,7 +8,7 @@ import { DELETE_CONTENT,GET_CONTENT,UPDATE_CONTENT } from '../../graphql/queries
 import Button from '@restart/ui/esm/Button'
 import { useNavigate } from 'react-router-dom';
 
-const SinglePost=()=> {
+const SinglePostUser=()=> {
     const {content,setContent,setOnEdit}=useContext(ContentContext);
     console.log(content)
     const date = new Date();
@@ -29,12 +29,11 @@ const SinglePost=()=> {
       })
       navigate("/");
     }
-    const updateContent=(id,title,stories,image_url)=>{      
+    const updateContent=(id,title,stories)=>{      
       setContent({
         id:id,
         title:title,
         stories:stories,
-        image_url:image_url
       })
       setOnEdit(true)
       navigate("/write");
@@ -44,15 +43,11 @@ const SinglePost=()=> {
       <div className="singlePostWrapper">
         <img
           className="singlePostImg"
-          src={content.image_url}
+          src={gambar}
           alt=""
         />
         <h1 className="singlePostTitle">
           {content.title}
-          <div className="singlePostEdit">
-            <Button className="buttonEdit" onClick={()=>updateContent(content.id,content.title,content.stories,content.image_url)}>Edit</Button>
-            <Button className="buttonDelete" onClick={()=>hapusContent(content.id)}>Delete</Button>
-          </div>
         </h1>
         <div className="singlePostInfo">
           <span>
@@ -67,4 +62,4 @@ const SinglePost=()=> {
     )
 }
 
-export default SinglePost;
+export default SinglePostUser;

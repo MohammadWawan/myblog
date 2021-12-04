@@ -8,7 +8,7 @@ import { ContentContext } from "../../context/ContentContext";
 import React,{useContext} from "react";
 import { useNavigate } from 'react-router-dom';
 
-const Post = (props) => {
+const PostUser = (props) => {
   const {id,title,stories,image_url,created_at,updated_at}=props.data;
   const formatter = buildFormatter(indonesiaStrings)
   let navigate = useNavigate();
@@ -20,7 +20,7 @@ const Post = (props) => {
       stories:stories,
       image_url:image_url,
     })
-    navigate("/singlepostAdmin");
+    navigate("/singlepost");
   }
   
   return (
@@ -49,4 +49,4 @@ const Post = (props) => {
   );
 }
 
-export default Post;
+export default PostUser;

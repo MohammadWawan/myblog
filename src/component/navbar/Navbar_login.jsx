@@ -10,13 +10,7 @@ export default function Navbar() {
       </div>
       <div className="topCenter">
         <ul className="topList">
-          <li className="topListItem">
-            <div className="link">
-              HOME
-            </div>
-          </li>
-          <li className="topListItem">ABOUT</li>
-          <li className="topListItem">CONTACT</li>
+         <h3>Selamat Datang di Blog Mohammad Wawan</h3>
         </ul>
       </div>
       <div className="topRight">

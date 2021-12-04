@@ -6,20 +6,21 @@ query MyQuery {
     id
     title
     stories
+    image_url
     created_at
     updated_at
   }
 }
 `;
-
 export const INSERT_CONTENT = gql`
-mutation MyMutation($stories: String!, $title: String!) {
- insert_myBlog_konten(objects: {title: $title, stories: $stories}) {
+mutation MyMutation($stories: String!, $title: String!,$image_url: String!) {
+ insert_myBlog_konten(objects: {title: $title, stories: $stories,image_url: $image_url,}) {
    affected_rows
    returning {
      id
      title
      stories
+    image_url
    }
  }
 }
@@ -45,3 +46,19 @@ mutation MyMutation($id: Int!, $stories: String!, $title: String!) {
 }
 `;
   
+export const SEARCH_CONTENT=gql`
+query MyQuery{
+  myBlog_konten{
+    id
+    title
+  }
+}
+`
+
+export const LOGIN_ADMIN=gql`
+query MyQuery($email: String!, $password: String!) {
+  myBlog_user(where: {_and: {email: {_eq: $email}, password: {_eq: $password}}}) {
+    id
+  }
+}
+`;

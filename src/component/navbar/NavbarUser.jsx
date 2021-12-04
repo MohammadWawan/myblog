@@ -1,19 +1,9 @@
 import "./navbar.css"
 import Logo from "../../image/logo.png"
 import iconSearch from "../../image/baseline_search_black_36dp.png"
-import { Button, FormControl, Image, InputGroup } from "react-bootstrap"
+import { Button, FormControl, InputGroup } from "react-bootstrap"
 import { Link } from "react-router-dom"
-import { useCookies } from "react-cookie";
-import { useNavigate } from "react-router-dom"
-export default function Navbar() {
-  const [cookie, setCookie, removeCookie] = useCookies(["admin"]);
-  const navigate=useNavigate()
-  const handleLogout = () => {
-    removeCookie("admin", {
-      path: "/",
-    });
-  navigate("/login")
-  };
+export default function NavbarUser() {
     return (
         <nav >
         <div className="top">
@@ -39,21 +29,16 @@ export default function Navbar() {
               CONTACT
             </Link>
           </li>
-          <li className="topListItem">
-          <Link to="/write">
-              WRITE
-            </Link>
-          </li>
         </ul>
       </div>
       <div className="topRight">
-      <InputGroup className="mb-3 col align-self-end" style={{marginTop:"15px", marginRight:"15px" }} >
-      <button onClick={handleLogout}>Logout</button>
+      <InputGroup className="mb-3" style={{marginTop:"15px", marginRight:"15px" }} >
     <FormControl
       placeholder="Search"
       aria-describedby="basic-addon2"
+      
     />
-      <img src={iconSearch} alt="iconsearch img-fluid" width="10%" height="10%" />
+    <img src={iconSearch} alt="iconsearch img-fluid" width="10%" height="10%" />
   </InputGroup>
       </div>
     </div>

@@ -5,7 +5,8 @@ const ContentContextProvider=(props)=> {
     const [content,setContent]=useState({
         id:"",
         title:"",
-        stories:""
+        stories:"",
+        image_url:"",
     });
     const[onEdit,setOnEdit]=useState(false);
     const [search,setSearch]=useState("");

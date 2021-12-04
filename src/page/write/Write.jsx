@@ -1,28 +1,17 @@
 import "./write.css"
-import {gql,useMutation} from "@apollo/client"
+import {useMutation} from "@apollo/client"
 import {GET_CONTENT,INSERT_CONTENT,UPDATE_CONTENT} from "../../graphql/queries"
 import { ContentContext } from "../../context/ContentContext";
 import React,{useContext,useState,useEffect} from "react";
 import plus from "../../image/plus-image.png"
 import { useNavigate } from 'react-router-dom';
-
+import { storage } from "../../fire";
+import { getDownloadURL, uploadBytesResumable,ref } from "@firebase/storage";
 const Write=()=> {
   const {content,onEdit,setOnEdit}=useContext(ContentContext);
   const [insertNewData,{data:insertData}]=useMutation(INSERT_CONTENT);
   const[editDataById,{data:ediData}]=useMutation(UPDATE_CONTENT);
-  const createContent = () => {
-    insertNewData({
-      variables: {
-        title:inputContent.title,
-        stories:inputContent.stories,
-      },
-      refetchQueries: [
-        {
-          query: GET_CONTENT,
-        },
-      ],
-    });
-  };
+  
   useEffect(()=>{
     if(onEdit){
       setInputContent({
@@ -39,16 +28,42 @@ const Write=()=> {
     stories:"",
     });
 
+    const [progress,setProgress]=useState(0);
+    const [file,setFile]=useState();
     
-    const [image,setImage]=useState("")
-    const [saveImage,setSaveImage]=useState(null);
+    const uploadFiles=()=>{
+      const storageRef=ref(storage, `/images/${file.name}`);
+      const uploadTask=uploadBytesResumable(storageRef,file);
 
-    const handleUploadChange=(e)=>{
-      console.log(e.target.files[0])
-      let uploaded=e.target.files[0]
-      setImage(URL.createObjectURL(uploaded))
-      setSaveImage(uploaded)
+      uploadTask.on("state_changed",(snapshot)=>{
+        const prog=Math.round(
+          (snapshot.bytesTransferred/snapshot.totalBytes)*100
+        );
+        setProgress(prog);
+      },(err)=>console.log(err),
+        ()=>{
+          getDownloadURL(uploadTask.snapshot.ref).then((url)=>{
+            console.log(url)
+            insertNewData({
+            variables: {
+              title:inputContent.title,
+              stories:inputContent.stories,
+              image_url:url
+            },
+            refetchQueries: [
+              {
+                query: GET_CONTENT,
+              },
+            ],
+          })});
+        }
+      );
+    };
+
+    const onChangePhoto=(e)=>{
+      setFile(e.target.files[0])
     }
+
     const onChange = (e) => {
         setInputContent({
           ...inputContent,
@@ -60,8 +75,8 @@ const Write=()=> {
     const handleSubmit=()=>{
       if (inputContent.title.trim() && inputContent.stories) {
         const story = inputContent.stories;
-        if (story == "") {
-          alert("stories gk ada");
+        if (story === "") {
+          alert("Data masih ada yang kosong");
         } else {
           if(onEdit){
             editDataById({
@@ -74,7 +89,7 @@ const Write=()=> {
             setOnEdit(false)
           }else{
           console.log(inputContent);
-          createContent();
+          uploadFiles();
           
           }
           setInputContent({
@@ -89,21 +104,16 @@ const Write=()=> {
       }
       navigate("/")
     };
-    return (
+  return (
       <div className="write">
-      <img
-      className="writeImg"
-      src={image}
-      alt=""
-      />
-      
       <div className="writeFormGroup">
         <label htmlFor="fileInput">
           <i className="writeIcon fas fa-plus">
-            <img src={plus} alt="" width="100%" height="auto" />
+            <img src={plus} alt="" width="100%" height="auto"/>
           </i>
         </label>
-        <input id="fileInput" type="file" style={{ display: "none" }} onChange={handleUploadChange} />
+        <input id="fileInput" type="file" style={{ display: "none" }} onChange={onChangePhoto} />
+        <h3>Uploaded {progress} %</h3>
         <input
           className="writeInput"
           placeholder="Title"
