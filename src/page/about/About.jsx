@@ -1,10 +1,10 @@
 import React from 'react'
-import Navbar from '../../component/navbar/Navbar'
+import NavbarUser from '../../component/navbar/NavbarUser'
 
 export default function About() {
     return (
         <>
-        <Navbar/>
+        <NavbarUser/>
         <div className="container">
             <div className="row justify-content-md-center">
                 <div className="col-md-auto">

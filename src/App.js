@@ -8,6 +8,7 @@ import About from './page/about/About';
 import Contact from './page/contact/Contact'
 import HomeUser from './page/home/HomeUser';
 import SinglePostUser from './component/singlePost/singlePostUser';
+
 import { BrowserRouter, Routes,Route } from 'react-router-dom';
 function App() {
   return (

@@ -10,10 +10,8 @@ import { useNavigate } from 'react-router-dom';
 
 const SinglePost=()=> {
     const {content,setContent,setOnEdit}=useContext(ContentContext);
-    console.log(content)
     const date = new Date();
     const [deleteDataById,{data:deleteData}]=useMutation(DELETE_CONTENT);
-    const[editDataById,{data:ediData}]=useMutation(UPDATE_CONTENT);
     let navigate = useNavigate();
 
     const hapusContent=(id)=>{
@@ -27,7 +25,7 @@ const SinglePost=()=> {
           },
         ],
       })
-      navigate("/");
+      navigate("/Admin");
     }
     const updateContent=(id,title,stories,image_url)=>{      
       setContent({

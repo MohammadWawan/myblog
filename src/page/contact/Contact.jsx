@@ -1,10 +1,10 @@
 import Button from '@restart/ui/esm/Button'
 import React from 'react'
-import Navbar from '../../component/navbar/Navbar'
+import NavbarUser from '../../component/navbar/NavbarUser'
 export default function Contact() {
     return (
         <div>
-            <Navbar/>
+            <NavbarUser/>
             <div className="container">
             <div className="row justify-content-md-center">
                 <div className="col-md-auto">
