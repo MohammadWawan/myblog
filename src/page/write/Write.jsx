@@ -106,6 +106,9 @@ const Write=()=> {
     };
   return (
       <div className="write">
+        {file && (
+        <img className="writeImg" src={URL.createObjectURL(file)} alt="" />
+      )}
       <div className="writeFormGroup">
         <label htmlFor="fileInput">
           <i className="writeIcon fas fa-plus">
